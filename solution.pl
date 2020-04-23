@@ -9,7 +9,7 @@
 %                                                    Key, Loudness, Mode, Speechiness,
 %                                                    Acousticness, Instrumentalness, Liveness,
 %                                                    Valence, Tempo, DurationMs, TimeSignature]).
-
+%%%%
 getArtistTracks(ArtistName, TrackIds, TrackNames) :-helper(ArtistName,TrackIds,TrackNames). % I needed helper predicates to get TrackIds, TrackNames items seperately
 helper(ArtistName,TrackIds,TrackNames):-
     findall( TrackIds, (track(TrackIds,TrackNames,[ArtistName],_,_)) , TrackIds),helper2(ArtistName,TrackNames). %findall gets all results that is equal to ArtistName
