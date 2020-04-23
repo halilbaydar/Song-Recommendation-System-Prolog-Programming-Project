@@ -205,10 +205,3 @@ parse_for_me2([],_,_,_,_).
 parse_for_me2([],[],[],[],[]).
 parse_for_me2([H|T],Id,Tname,Aname,Distance):-parse_for_me2(T,Id1,Tname1,Aname1,Distance1),Uzaklik-Numara-HTName-HAName-_=H , Id=[Numara|Id1],
 Tname=[HTName|Tname1], Aname=[[HAName]|Aname1],Distance=[Uzaklik|Distance1].
-
-
-
-
-
-
-
