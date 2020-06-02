@@ -10,11 +10,16 @@
 %                                                    Acousticness, Instrumentalness, Liveness,
 %                                                    Valence, Tempo, DurationMs, TimeSignature]).
 %%%%
+/*
 getArtistTracks(ArtistName, TrackIds, TrackNames) :-helper(ArtistName,TrackIds,TrackNames). % I needed helper predicates to get TrackIds, TrackNames items seperately
 helper(ArtistName,TrackIds,TrackNames):-
     findall( TrackIds, (track(TrackIds,TrackNames,[ArtistName],_,_)) , TrackIds),helper2(ArtistName,TrackNames). %findall gets all results that is equal to ArtistName
 helper2(ArtistName,TrackNames):-
     findall( TrackNames, (track(_,TrackNames,[ArtistName],_,_)) , TrackNames). %findall gets all results that is equal to ArtistName
+    */
+    getArtistTracks(ArtistName,TrackIds,TrackNames) :-
+        findall(TrackIds,track(TrackIds, _, [ArtistName], _, _),TrackIds) ,
+        findall(TrackNames,track(_, TrackNames, [ArtistName], _, _),TrackNames).
 
 %below predicate returns the size of list given paramether
 length_for_me([],0).
@@ -150,7 +155,11 @@ helpppp([H|T],FilteredTracks):-helpppp(T,FilteredTracks2),track(H,_,_,_,FF),
     ).
 
 %returns genre list of given track
-getTrackGenre(TrackId, Genres):-track(TrackId,_,[ArtistName],_,_),artist(ArtistName,Genres,_).
+getTrackGenre(TrackId, Genres):-
+    findall(Genre,
+        (track(TrackId,_,[X],_,_), artist(X,Genre,_))
+        ,Genre),
+        flatten(Genre,Genre1),list_to_set(Genre1,Genres).
 
 %this predicate filters disliked and not liked tracks with genres and writes 30 tracks list with id,name,etc
 discoverPlaylist(LikedGenres, DislikedGenres, Features, FileName, Playlist):-findall(

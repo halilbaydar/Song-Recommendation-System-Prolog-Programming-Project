@@ -12,7 +12,7 @@ def write_to_file(filename, variable):
 def convert(tests, path):
     if not os.path.exists(path):
         os.mkdir(path)
-    str = "swipl -g '[load].' -g '[solution].' "
+    str = "swipl -g \'[load].\' -g '[solution].' "
     for expr, var, name in tests:
         str = str + "-g '" + expr + ', ' + write_to_file(os.path.join(path, name), var) + ".' "
         # print("-g '" + expr + ', ' + write_to_file(os.path.join(path, name), var) + ".' ")
@@ -20,7 +20,8 @@ def convert(tests, path):
     return str
 
 
-test_cases = [
+test_cases =
+[
     ('getArtistTracks("Gorillaz", TrackIds, TrackNames)', ["TrackIds", "TrackNames"], "test-1-1.txt"),
     ('getArtistTracks("Adele", TrackIds, TrackNames)', ["TrackIds", "TrackNames"], "test-1-2.txt"),
     ('getArtistTracks("Queen", TrackIds, TrackNames)', ["TrackIds", "TrackNames"], "test-1-3.txt"),
